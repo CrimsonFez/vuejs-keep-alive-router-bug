@@ -1,8 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import People from './views/People.vue';
 import Home from './views/Home.vue';
-import Places from './views/Places.vue';
-import Regions from './components/Regions.vue';
 
 const routes = [
   {
@@ -11,28 +8,28 @@ const routes = [
     component: Home,
   },
   {
-    path: '/people/:personName',
-    name: 'people',
-    component: People,
+    path: '/person/:personId',
+    name: 'person',
+    component: () => import('./views/Person.vue'),
     props: true,
     children: [
       {
-        name: 'about',
+        name: 'person.about',
         path: 'about',
         component: () => import('./components/PersonAbout.vue'),
       },
     ],
   },
   {
-    path: '/places',
-    name: 'places',
-    component: Places,
+    path: '/region/:regionId',
+    name: 'region',
+    component: () => import('./views/Region.vue'),
+    props: true,
     children: [
       {
-        name: 'regions',
-        path: 'regions/:regionName',
-        component: Regions,
-        props: true,
+        name: 'region.about',
+        path: 'about',
+        component: () => import('./components/RegionAbout.vue'),
       },
     ],
   },
